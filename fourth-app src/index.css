@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.my-Fail-class{
+   background-color:red;
+}
+.my-JustPass-div{
+
+  background-color: yellow;
+}
+.my-SecondClass-div{
+background-color:orange;
+}
+.my-FirstClass-div{
+  background-color:violet;
+}
+.my-Distinction-div{
+  background-color: green;
+}
