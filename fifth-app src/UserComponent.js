@@ -1,132 +1,174 @@
-import axios, { Axios } from "axios";
-import React,{Component} from "react";
-export default class UserComponent extends Component{
-    state={
-        users:[],
-        isEditMode:false,
-        userObject:{
-            title:"",
-            body:"",
-            userId:1,
-        },
-    }
-    onDeleteClickHandler=(id)=>{
-        axios.delete("https://jsonplaceholder.typicode.com/users/" 
-        +id).then((response)=>{
-            console.log(response);
-            this.fetchData();
-            alert("Deleted");
-        });
-    };
-    onEditClickHandler=(id)=>{
-        //get specific object by id from the list
-        const editObject= this.state.users.find((user)=>user.id===id);
+import axios from "axios";
+import React, {Component} from "react"
 
-        //set the object to state.postObject
-        this.setState({userObject:editObject, isEditMode: true})
+
+
+export default class UserComponent extends Component {
+    state = {
+        users: [],
+        isEditMode: false,
+        userObj: {
+            name: "",
+            userid: 1,
+            username: "",
+            email: "",
+            phone:"",
+            website:"",
+        },
     };
-    onCancelClickHandler=(event)=>{
-        event.preventDefault();
+
+    onClickHandler=(id)=>{
+        axios.delete("https://jsonplaceholder.typicode.com/users/" +id).then((response)=>{
+            console.log(response);
+            this.FetchMethod();
+            alert("Deleted");
+
+
+        });
+    }
+    onChangeHandler = (event) => {
+        const {name,value}=event.target;
+        const userObjectCopy=this.state.userObj;
+        userObjectCopy[name]=value;
+        this.setState({userObj:userObjectCopy});
+    };
+    onEditClickHandler = (id) => {
+        const editObject=this.state.users.find((user) => user.id === id);
+        if(editObject)
+        {
+            this.setState({
+                userObj:editObject,isEditMode:true
+            });
+        }
+    };
+    resetState ()
+    {
         this.setState({
-            userObject:{
-                title:"",
-                body:"",
+            userObj:{
+                name:"",
+                username:"",
+                email:"",
                 userId:1,
+                phone:"",
+                website:"",
             },
             isEditMode:false,
         });
-
-    };
-    onChangeHandler=(event)=>{
-        const{name, value}=event.target;
-        const userObjectCopy=this.state.userObject;
-        userObjectCopy[name]=value;
-        this.setState({userObject:userObjectCopy})
     }
-    onFormSubmitClick=(event)=>{
-        event.preventDefault();
-        console.log(this.state);
+  
+    onChangeHandler = (event) => {
+        const {name,value}=event.target;
+        const userObjectCopy=this.state.userObj;
+        userObjectCopy[name]=value;
+        this.setState({userObj:userObjectCopy});
+    };
 
-        if(this.state.isEditMode){
-            //edit
-            axios.put("https://jsonplaceholder.typicode.com/users/" 
-            + this.state.userObject.id, this.state.userObject).then(
-                (response)=>{
-                    console.log(response);
-                    this.fetchData();
-                    alert("Updated");
-                    this.resetState();
-                    
-                }
-            )
-        }else{
-            //save
-            axios.post("https://jsonplaceholder.typicode.com/users",
-             this.state.userObject).then((response)=>{
-                console.log(response);
-                this.fetchData();
+    onCancelClickHandler = (event) =>{
+        event.preventDefault();
+        this.resetState();
+    }
+    onFormSubmitClick = (event) => {
+        event.preventDefault();
+        if(this.state.isEditMode)
+        {
+            axios.put("https://jsonplaceholder.typicode.com/users/"+this.state.userObj.id,this.state.userObj)
+            .then((response)=> {console.log(response);
+                this.FetchMethod();
+                alert("Updated");
+                this.resetState();
+            })
+        }
+        else{
+            console.log(this.state);
+            axios.post("https://jsonplaceholder.typicode.com/users",this.state.userObj)
+            .then((response) => {console.log(response);
+                this.FetchMethod();
                 alert("Created");
-                this.setState({userObject:{
-                    title:"",
-                    body:"",
-                }})
+                this.resetState();
             })
 
         }
+    };
 
-        
-    }
-    
-    resetState() {
-        this.setState({
-            userObject: {
-                title: "",
-                body: "",
-                userId: 1,
-            },
-            isEditMode: false,
-        });
-    }
+ render(){
 
-    render(){
-        return(
-            <>
-            <h1>IN USER </h1>
+    return(
+        <>
+            <h1> In USER</h1>
             <form onSubmit={this.onFormSubmitClick}>
-                <label>Title</label>
-                <input name="title" value={this.state.userObject.title} 
-                onChange={this.onChangeHandler}></input>
-                <label>Body</label>
-                <input name="body" value={this.state.userObject.body} 
-                onChange={this.onChangeHandler}></input>
-                <button type="submit">{this.state.isEditMode? 
-                "Update" :"Submit"}</button>
-                <button onClick={this.onCancelClickHandler}
-                >Cancel</button>
+            <label>Name</label>
+                <input
+                    name="name"
+                    value={this.state.userObj.name}
+                    onChange={this.onChangeHandler}
+                />
+                
+
+                <label>UserName</label>
+                <input
+                    name="username"
+                    value={this.state.userObj.username}
+                    onChange={this.onChangeHandler}
+                />
+                 
+
+                <label>Email Id</label>
+                <input
+                    name="email"
+                    value={this.state.userObj.email}
+                    onChange={this.onChangeHandler}
+                />
+                <br/><hr/>
+
+              
+                 <label>Phone</label>
+                <input
+                    name="phone"
+                    value={this.state.userObj.phone}
+                    onChange={this.onChangeHandler}
+                />
+                
+                <label>website</label>
+                <input
+                    name="website"
+                    value={this.state.userObj.website}
+                    onChange={this.onChangeHandler}
+                />
+                <hr/>
+
+
+                <button type="submit">{this.state.isEditMode ? "Update" : "Submit"}</button>
+                <button onClick = {this.onCancelClickHandler}>Cancel</button>
             </form>
-            {this.state.users.map((users, index)=>(
-                <div key={index}><div>{index+1}.{users.title}</div>
-                <button onClick={()=>{this.onDeleteClickHandler
-                    (users.id)}}>Delete</button>
-                <button onClick={()=>{this.onEditClickHandler
-                    (users.id)}}>Edit</button>
-                <br/>
+            {this.state.users.map((user,index)=>(
+                <div key={index}>
+                    <div>
+                    {index+1}.{user.name}
+                    </div>
+                    <br/>
+                    <button onClick={()=>{
+                this.onClickHandler(user.id); }}>Delete</button>
+
+                <button onClick={() =>{
+                    this.onEditClickHandler(user.id);
+                }}>Edit</button>
+
                 </div>
-            ))}
+                
+                 ))}
             </>
-        );
-    }
-    componentDidMount(){
-        this.fetchData();
-    }
-
-
-    fetchData() {
-        axios.get("https://jsonplaceholder.typicode.com/posts")
-        .then((response) => {
-            console.log(response.data);
-            this.setState({ users: response.data });
-
-        });
-    }
+    )
 }
+componentDidMount()
+{
+    this.FetchMethod();
+}
+
+FetchMethod() {
+    axios.get("https://jsonplaceholder.typicode.com/users").then((response) => {
+        console.log(response.data);
+        this.setState({ users: response.data });
+    });
+
+}
+};
