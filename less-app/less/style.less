@@ -1,0 +1,25 @@
+@background-color: rgb(189, 218, 110);
+@primary-color: hsl(194, 43%, 54%);
+@secondary-color: rgb(65, 22, 145);
+body {
+  background-color: @background-color;
+}
+
+.button {
+  padding: 10px;
+  color: white;
+  background-color: rgb(22, 71, 90);
+}
+
+.primary-button:extend(.button) {
+  background-color: @primary-color;
+}
+
+.secondary-button:extend(.button) {
+  background-color: @secondary-color;
+}
+
+#colors() {
+  primary: hsl(325, 47%, 40%);
+  secondary: rgb(13, 156, 44);
+}
