@@ -1,0 +1,44 @@
+$primary-color: #5d5c61;
+$secondary-color: #379683;
+$info-color: #7395ae;
+$default-color: #557a95;
+$success-color: #b1a296;
+$danger-color: #501b1d;
+
+body {
+  background-color: rgb(129, 5, 129);
+}
+
+@mixin theme($theme-color: $primary-color) {
+  background-color: $theme-color;
+  width: 20%;
+  position: absolute;
+  margin: 5px;
+  border: solid 2px;
+}
+
+.primary {
+  @include theme($primary-color);
+  left: 0;
+}
+
+.secondary {
+  @include theme($secondary-color);
+  right: 0;
+}
+
+.info {
+  @include theme($info-color);
+}
+
+.default {
+  @include theme($default-color);
+}
+
+.success {
+  @include theme($success-color);
+}
+
+.danger {
+  @include theme($danger-color);
+}
