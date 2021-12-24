@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background: grey;
+}
+
+.login-form {
+  width: 300px;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 2rem;
+}
+
+.header h3 {
+  margin: 0;
+  padding: 30px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  background: none;
+  border: 1px solid white;
+  outline: none;
+  border-radius: 20px;
+  color: white;
+  padding: 9px;
+  margin: 30px auto;
+  text-align: center;
+  width: 170px;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+  border: 2px solid rgb(128, 0, 122);
+}
+
+.login-form input[type="submit"] {
+  padding: 7px 20px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid white;
+  border-radius: 5px;
+  outline: none;
+  color: white;
+  width: 170px;
+}
+
+.login-form input[type="submit"]:hover {
+  border: 0px;
+  color: rgb(128, 0, 122);
+  box-shadow: 3px 3px 8px rgb(128, 0, 122);
+}
+
+.login-form i {
+  position: absolute;
+  margin: 35px 0px 0 -35px;
+}
+
+.visibility:hover {
+  cursor: pointer;
+}
